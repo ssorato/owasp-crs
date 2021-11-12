@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: api-log:latest
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "3"
+            max-size: "10m"
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    image: owasp-crs:latest
+    ports:
+      - 80:80
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "3"
+            max-size: "10m"
